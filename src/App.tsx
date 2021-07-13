@@ -1,26 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
+const InputField = ({ id, label, ...props }: { [x: string]: string }) => (
+  <>
+    <label htmlFor={id}>{label}</label>
+    <input id={id} name={id} {...props} required />
+  </>
+);
+
+const addZero = (number: number) => {
+  return Math.floor(number / 10).toString() + (number % 10).toString();
+};
+
+const parseDate = (date: Date) => {
+  const day = addZero(date.getDate());
+  const month = addZero(date.getMonth() + 1);
+  const year = date.getFullYear();
+
+  return day + "." + month + "." + year;
+};
+
+export default function App(): JSX.Element {
+  const now = new Date();
+  const minDate = parseDate(now);
+  const maxDate = "01.01.9999";
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <form>
+      <h1>Добавить мероприятие</h1>
+      <InputField id="eventName" label="Название" type="text" />
+      <InputField
+        id="eventDate"
+        label="Дата"
+        type="date"
+        min={minDate}
+        max={maxDate}
+      />
+      <InputField
+        id="eventStart"
+        label="Время начала"
+        type="time"
+        min="09:00"
+        max="18:00"
+      />
+      <InputField id="eventEnd" label="Время конца" type="time" max="18:00" />
+      <input type="submit" value="Добавить" />
+    </form>
   );
 }
-
-export default App;
