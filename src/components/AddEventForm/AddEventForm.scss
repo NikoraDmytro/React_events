@@ -1,0 +1,29 @@
+.EventForm {
+  margin: 0 2em;
+  .FormInputs {
+    display: flex;
+    flex-flow: row wrap;
+    .InputField {
+      flex-basis: 50%;
+      padding-right: 2.5%;
+      padding-bottom: 0.5em;
+      input {
+        width: 100%;
+        font: 400 1em Arial;
+        height: 2.5em;
+      }
+    }
+  }
+  .SubmitButton {
+    border: none;
+    background-color: #ff4c00;
+    cursor: pointer;
+    color: #ffffff;
+    margin: 0.5em 2.5%;
+    float: right;
+    width: 22.5%;
+    height: 2.5em;
+    font-size: 1em;
+    border-radius: 5px;
+  }
+}

@@ -1,0 +1,21 @@
+.InputField {
+  label {
+    font-size: 1.1em;
+    font-weight: 500;
+  }
+  input {
+    margin-top: 0.25em;
+    padding: 0.5em;
+    background-color: #f7f8f9;
+    border: 2px solid #eeeeee;
+    border-radius: 5px;
+    &:focus {
+      outline: 2px solid #5d6161;
+    }
+  }
+  .error {
+    color: #ed1931;
+    margin-top: 0.25em;
+    font-size: 1em;
+  }
+}

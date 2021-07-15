@@ -1,6 +1,7 @@
-import { useField } from "formik";
 import React from "react";
+import { useField } from "formik";
 import { FormInputProps } from "../../shared/types/EventFormTypes";
+import "./InputField.scss";
 
 export const InputField = ({
   name,
@@ -9,13 +10,23 @@ export const InputField = ({
 }: FormInputProps): JSX.Element => {
   const [field, meta] = useField(name);
 
+  let errorColor;
+  let errorBorder;
+  if (meta.error && meta.touched) {
+    errorColor = { color: "#ed1931" };
+    errorBorder = { borderColor: "#ed1931", outline: "none" };
+  }
+
   return (
-    <>
-      <label htmlFor={name}>{label}</label>
-      <input {...field} {...props} />
+    <div className="InputField">
+      <label htmlFor={name} style={errorColor}>
+        {label}
+      </label>
+      <br />
+      <input {...field} {...props} style={errorBorder} />
       {meta.error && meta.touched ? (
-        <div className="error">{meta.error}</div>
+        <strong className="error">{meta.error}</strong>
       ) : null}
-    </>
+    </div>
   );
 };
