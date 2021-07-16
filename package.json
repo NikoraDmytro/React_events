@@ -10,8 +10,11 @@
     "@types/node": "^12.20.16",
     "@types/react": "^17.0.14",
     "@types/react-dom": "^17.0.9",
+    "express": "^4.17.1",
     "formik": "^2.2.9",
+    "mysql2": "^2.2.5",
     "node-sass": "^6.0.1",
+    "nodemon": "^2.0.12",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
@@ -20,6 +23,7 @@
     "yup": "^0.32.9"
   },
   "scripts": {
+    "server": "nodemon ./api/bin/www",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
