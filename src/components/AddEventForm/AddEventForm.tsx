@@ -5,6 +5,7 @@ import { InputField } from "./../inputs/InputField";
 import { eventFormValidation } from "./../../utils/validation/eventFormValidation";
 import type { FormValues } from "../../shared/types/EventFormTypes";
 import { parseDate } from "./../../utils/functions/parseDate";
+import { handleFormSubmit } from "../../utils/functions/handleFormSubmit";
 import "./AddEventForm.scss";
 
 const initialValues: FormValues = {
@@ -19,11 +20,7 @@ export const AddEventForm = () => {
     <Formik
       initialValues={initialValues}
       validate={eventFormValidation}
-      onSubmit={(values, { setSubmitting, resetForm }) => {
-        alert(values);
-        resetForm();
-        setSubmitting(false);
-      }}
+      onSubmit={handleFormSubmit}
     >
       <Form className="EventForm">
         <h1 className="FormTitle">Добавить мероприятие</h1>
