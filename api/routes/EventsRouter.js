@@ -1,24 +1,12 @@
 const router = require("express").Router();
-const mysql = require("mysql2/promise");
+const con = require("../connection.js");
+const getDate = require("../public/functions/getDate.js");
+const parseServerResponse = require("../public/functions/parseServerResponse.js");
 require("dotenv").config();
-
-const addZero = (number) => {
-  return Math.floor(number / 10).toString() + (number % 10).toString();
-};
-
-const getDate = () => {
-  const now = new Date();
-  const day = now.getDate();
-  const month = now.getMonth() + 1;
-  const year = now.getFullYear();
-
-  return year + "-" + addZero(month) + "-" + addZero(day);
-};
 
 router.get("/", async (req, res) => {
   try {
-    const connection = await require("../connection.js");
-
+    const connection = await con;
     await connection.execute("DELETE FROM events_table WHERE event_date < ?", [
       getDate(),
     ]);
@@ -27,7 +15,7 @@ router.get("/", async (req, res) => {
 
     const [events, field] = await connection.execute(sql);
 
-    res.json(events);
+    res.json(parseServerResponse(events));
   } catch (err) {
     res.status(400).json(err);
   }
@@ -35,25 +23,28 @@ router.get("/", async (req, res) => {
 
 router.post("/add_event", async (req, res) => {
   try {
-    const connection = await require("../connection.js");
+    const connection = await con;
     const values = Object.values(req.body);
 
     const firstSql = `
     SELECT event_name
     FROM events_table 
-    WHERE event_end >= ? AND event_start <= ?
+    WHERE event_date = ? 
+      AND event_end >= ? 
+      AND event_start <= ?
     `;
 
     const [
       overlappingTimeIntervals,
       fields,
     ] = await connection.execute(firstSql, [
-      req.body.event_start,
-      req.body.event_end,
+      req.body.eventDate,
+      req.body.eventStart,
+      req.body.eventEnd,
     ]);
 
     if (overlappingTimeIntervals.length) {
-      res.status(400).json("This time is busy");
+      res.status(403).send("Time is busy!");
       return;
     }
 
@@ -66,7 +57,6 @@ router.post("/add_event", async (req, res) => {
 
     res.json(response);
   } catch (err) {
-    console.log(err);
     res.status(400).json(err);
   }
 });
