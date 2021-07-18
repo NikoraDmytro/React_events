@@ -1,8 +1,10 @@
 const toCamelCase = (string) => {
-  const WordsArray = string.split("_");
+  const WordsArray = string.split("_").map((word, index) => {
+    if (!index) return word;
 
-  WordsArray.foreach((word) => {
-    word[0].toUpperCase();
+    const newWord = word[0].toUpperCase() + word.slice(1);
+
+    return newWord;
   });
 
   const camelCaseString = WordsArray.join("");
@@ -12,13 +14,14 @@ const toCamelCase = (string) => {
 
 const parseServerResponse = (EventsArray) => {
   const ParsedArray = EventsArray.map((event) => {
-    const Keys = Object.keys(event);
+    const parsedEvent = {};
 
-    const CamelCaseKeys = Keys.map((key) => {
-      return toCamelCase(key);
+    Object.keys(event).forEach((key) => {
+      const CamelCaseKey = toCamelCase(key);
+      parsedEvent[CamelCaseKey] = event[key];
     });
 
-    return Object.assign(CamelCaseKeys, Object.values(event));
+    return parsedEvent;
   });
 
   return ParsedArray;

@@ -11,8 +11,8 @@ export const handleFormSubmit = async (
     resetForm();
     setSubmitting(false);
   } catch (err) {
-    const status = err.request.status;
-    const response = err.request.response;
+    const status = err.request?.status || undefined;
+    const response = err.request?.response || undefined;
 
     if (status === 403 && response === "Time is busy!") {
       setErrors({ eventStart: "Время занято!", eventEnd: "Время занято!" });

@@ -9,3 +9,8 @@ export type EventData = {
 export type EventsArray = {
   [date: string]: Array<EventData>;
 };
+
+export type ServerResponseType = {
+  data: EventData[];
+  [x: string]: any;
+};
