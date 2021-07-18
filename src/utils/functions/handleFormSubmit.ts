@@ -4,7 +4,7 @@ import { EventsStore } from "./../../stores/EventsStore";
 
 export const handleFormSubmit = async (
   values: FormValues,
-  { setSubmitting, resetForm }: FormikHelpers<FormValues>
+  { setSubmitting, setErrors, resetForm }: FormikHelpers<FormValues>
 ) => {
   try {
     await EventsStore.addNewEvent(values);
@@ -15,9 +15,10 @@ export const handleFormSubmit = async (
     const response = err.request.response;
 
     if (status === 403 && response === "Time is busy!") {
-      alert("Time is busy");
-    } else {
-      console.log(err);
+      setErrors({ eventStart: "Время занято!", eventEnd: "Время занято!" });
+      return;
     }
+
+    console.log(err);
   }
 };

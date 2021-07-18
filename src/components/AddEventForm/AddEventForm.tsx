@@ -7,6 +7,7 @@ import type { FormValues } from "../../shared/types/EventFormTypes";
 import { parseDate } from "./../../utils/functions/parseDate";
 import { handleFormSubmit } from "../../utils/functions/handleFormSubmit";
 import "./AddEventForm.scss";
+import { EventStartInputField } from "./../inputs/EventStartInputField";
 
 const initialValues: FormValues = {
   eventName: "",
@@ -33,7 +34,7 @@ export const AddEventForm = () => {
             autoComplete="off"
           />
           <DateInputField name="eventDate" label="Дата" />
-          <InputField name="eventStart" label="Время начала" type="time" />
+          <EventStartInputField name="eventStart" label="Время начала" />
           <InputField name="eventEnd" label="Время конца" type="time" />
         </div>
 
