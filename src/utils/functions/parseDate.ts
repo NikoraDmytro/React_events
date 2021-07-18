@@ -1,5 +1,8 @@
 const addZero = (number: number) => {
-  return Math.floor(number / 10).toString() + (number % 10).toString();
+  const tens = Math.floor(number / 10).toString();
+  const units = (number % 10).toString();
+
+  return tens + units;
 };
 
 export const parseDate = (date: Date) => {
@@ -8,4 +11,14 @@ export const parseDate = (date: Date) => {
   const year = date.getFullYear();
 
   return year + "-" + addZero(month) + "-" + addZero(day);
+};
+
+export const normalizeDateFormat = (strangeFormatDate: string) => {
+  const date = new Date(strangeFormatDate);
+
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+
+  return addZero(day) + "." + addZero(month) + "." + year;
 };
