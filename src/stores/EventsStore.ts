@@ -5,6 +5,8 @@ import type {
   ServerResponseType,
 } from "../shared/types/EventsStoreTypes";
 import axios from "axios";
+import { sortByDate } from "./../utils/functions/sortByDate";
+import { sortByTime } from "./../utils/functions/sortByTime";
 
 const address = `http://localhost:3002/api`;
 
@@ -50,13 +52,16 @@ class Events {
       if (serverResponse) alert("Мероприятие добавлено!");
 
       const date = event.eventDate;
-      const Events = this.Events;
+      let Events = this.Events;
 
-      if (!Events[date]) Events[date] = [];
-
+      if (!Events[date]) {
+        Events[date] = [];
+      }
       Events[date].push(event);
+      Events[date] = sortByTime(Events[date]);
 
-      this.Events = { ...Events };
+      Object.keys(sortByDate(Events)).forEach((key) => console.log(key));
+      this.Events = { ...sortByDate(Events) };
     } catch (err) {
       throw err;
     }
