@@ -27,7 +27,7 @@
     "yup": "^0.32.9"
   },
   "scripts": {
-    "server": "nodemon ./api/bin/www",
+    "server": "cd api/ && nodemon bin/www",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

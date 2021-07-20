@@ -2,7 +2,6 @@ const router = require("express").Router();
 const con = require("../connection.js");
 const getDate = require("../public/functions/getDate.js");
 const parseServerResponse = require("../public/functions/parseServerResponse.js");
-require("dotenv").config();
 
 router.get("/", async (req, res) => {
   try {
@@ -11,7 +10,7 @@ router.get("/", async (req, res) => {
       getDate(),
     ]);
 
-    const sql = "SELECT * FROM events_table";
+    const sql = "SELECT * FROM events_table ORDER BY event_date, event_start";
 
     const [events, field] = await connection.execute(sql);
 

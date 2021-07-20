@@ -1,25 +1,31 @@
-const toCamelCase = (string) => {
-  const WordsArray = string.split("_").map((word, index) => {
-    if (!index) return word;
+const getDate = require("./getDate");
+const toCamelCase = require("./toCamelCase");
 
-    const newWord = word[0].toUpperCase() + word.slice(1);
+const keysToCamelCase = (event) => {
+  let newEvent = {};
 
-    return newWord;
+  Object.entries(event).forEach(([key, value]) => {
+    const camelCaseKey = toCamelCase(key);
+    newEvent[camelCaseKey] = value;
   });
 
-  const camelCaseString = WordsArray.join("");
+  return newEvent;
+};
 
-  return camelCaseString;
+const NoSeconds = (time) => {
+  if (time[1] === ":") {
+    return "0" + time.slice(0, 4);
+  }
+  return time.slice(0, 5);
 };
 
 const parseServerResponse = (EventsArray) => {
   const ParsedArray = EventsArray.map((event) => {
-    const parsedEvent = {};
+    const parsedEvent = keysToCamelCase(event);
 
-    Object.keys(event).forEach((key) => {
-      const CamelCaseKey = toCamelCase(key);
-      parsedEvent[CamelCaseKey] = event[key];
-    });
+    parsedEvent.eventDate = getDate(event.event_date);
+    parsedEvent.eventStart = NoSeconds(event.event_start);
+    parsedEvent.eventEnd = NoSeconds(event.event_end);
 
     return parsedEvent;
   });

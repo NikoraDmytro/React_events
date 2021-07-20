@@ -13,12 +13,12 @@ export const parseDate = (date: Date) => {
   return year + "-" + addZero(month) + "-" + addZero(day);
 };
 
-export const normalizeDateFormat = (strangeFormatDate: string) => {
-  const date = new Date(strangeFormatDate);
+export const normalizeDateFormat = (date: string) => {
+  const normalizedDate = new Date(date);
 
-  const day = date.getDate();
-  const month = date.getMonth() + 1;
-  const year = date.getFullYear();
+  const day = normalizedDate.getDate();
+  const month = normalizedDate.getMonth() + 1;
+  const year = normalizedDate.getFullYear();
 
   return addZero(day) + "." + addZero(month) + "." + year;
 };
