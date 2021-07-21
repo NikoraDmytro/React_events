@@ -2,7 +2,8 @@ import React from "react";
 import { observer } from "mobx-react";
 
 import { EventsStore } from "./../../stores/EventsStore";
-import { normalizeDateFormat } from "../../utils/functions/parseDate";
+import { ListByDate } from "./ListByDate";
+import "./EventsList.scss";
 
 export const EventsList = observer(() => {
   const Events = EventsStore.Events;
@@ -13,22 +14,9 @@ export const EventsList = observer(() => {
   }
 
   return (
-    <ul>
+    <ul className="EventsList">
       {Object.keys(Events).map((date) => (
-        <li key={date}>
-          {normalizeDateFormat(date)}
-          <ul>
-            {Events[date].map((event) => (
-              <li key={event.eventId}>
-                {event.eventName}
-                <br />
-                {event.eventStart}
-                <br />
-                {event.eventEnd}
-              </li>
-            ))}
-          </ul>
-        </li>
+        <ListByDate EventsByDate={Events[date]} date={date} />
       ))}
     </ul>
   );

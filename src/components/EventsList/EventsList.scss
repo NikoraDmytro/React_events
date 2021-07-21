@@ -1,0 +1,72 @@
+.EventsList {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 25em;
+  overflow: hidden;
+  &,
+  ul {
+    padding-inline-start: 0;
+    list-style-type: none;
+  }
+  .EventListSection {
+    flex-shrink: 0;
+    width: 32%;
+    margin-right: 2%;
+    border: 1px solid #e5e5e5;
+    h3 {
+      margin-top: 0;
+      line-height: 2em;
+      text-align: center;
+      background-color: #e5e5e5;
+    }
+  }
+}
+
+.EventsByDate {
+  .Event {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0.75em;
+    height: 1.5em;
+    align-items: center;
+    * {
+      text-align: center;
+      margin-right: 2px;
+      width: 0;
+    }
+
+    input {
+      color: #000000;
+    }
+    input:disabled {
+      border: none;
+      background-color: transparent;
+    }
+    .Name {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      padding: 0.25em;
+    }
+    .Date {
+      flex: 1;
+      &:disabled {
+        visibility: hidden;
+      }
+    }
+    .Time {
+      flex: 0.5;
+    }
+    .Edit {
+      flex: 0.25;
+    }
+    .Delete {
+      flex: 0.15;
+    }
+    img {
+      cursor: pointer;
+      padding: 0.25em;
+    }
+  }
+}
