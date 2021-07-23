@@ -60,7 +60,6 @@ class Events {
       Events[date].push(event);
       Events[date] = sortByTime(Events[date]);
 
-      Object.keys(sortByDate(Events)).forEach((key) => console.log(key));
       this.Events = { ...sortByDate(Events) };
     } catch (err) {
       throw err;

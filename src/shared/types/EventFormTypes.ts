@@ -14,6 +14,6 @@ export type FormErrors = {
 
 export type FormInputProps = {
   name: string;
-  label: string;
+  label?: string;
   [props: string]: any;
 };

@@ -10,9 +10,6 @@ export const sortByDate = (Events: EventsArray) => {
 
   const sortedEvents: EventsArray = {};
 
-  console.log(Dates);
-  console.log("-------------");
-
   Dates.forEach((date) => (sortedEvents[date] = Events[date]));
 
   return sortedEvents;

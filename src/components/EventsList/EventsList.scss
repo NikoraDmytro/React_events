@@ -3,7 +3,6 @@
   flex-direction: row;
   width: 100%;
   height: 25em;
-  overflow: hidden;
   &,
   ul {
     padding-inline-start: 0;
@@ -11,9 +10,13 @@
   }
   .EventListSection {
     flex-shrink: 0;
-    width: 32%;
+    min-width: 20em;
     margin-right: 2%;
     border: 1px solid #e5e5e5;
+    overflow: hidden;
+    &:hover {
+      overflow-y: auto;
+    }
     h3 {
       margin-top: 0;
       line-height: 2em;
@@ -21,52 +24,75 @@
       background-color: #e5e5e5;
     }
   }
+
+  &:hover {
+    overflow-x: auto;
+  }
+
+  ::-webkit-scrollbar {
+    width: 7px;
+  }
+
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+    border: 1px solid #8b9192;
+    background-color: #ffffff;
+    margin-top: 3em;
+    margin-bottom: 1em;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #535657;
+  }
 }
 
 .EventsByDate {
   .Event {
     display: flex;
     flex-direction: row;
-    margin-bottom: 0.75em;
-    height: 1.5em;
     align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75em;
+    padding: 0 0.5em;
     * {
-      text-align: center;
-      margin-right: 2px;
-      width: 0;
+      margin-right: 0.25em;
     }
-
     input {
       color: #000000;
     }
     input:disabled {
-      border: none;
+      border-color: transparent;
       background-color: transparent;
-    }
-    .Name {
-      flex: 1;
-      white-space: nowrap;
-      overflow: hidden;
-      padding: 0.25em;
-    }
-    .Date {
-      flex: 1;
-      &:disabled {
+      &[type="date"] {
         visibility: hidden;
       }
     }
-    .Time {
-      flex: 0.5;
+    input::-webkit-calendar-picker-indicator {
+      display: none;
     }
-    .Edit {
-      flex: 0.25;
+    .InputField {
+      width: fit-content;
+      input {
+        padding: 1px;
+        border-width: 1px;
+      }
+    }
+    .Name {
+      margin: 0;
+      margin-right: 0.25em;
+      width: 4em;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      &:hover {
+        white-space: normal;
+        overflow: visible;
+      }
     }
     .Delete {
-      flex: 0.15;
-    }
-    img {
-      cursor: pointer;
-      padding: 0.25em;
+      width: 1em;
+      height: auto;
     }
   }
 }

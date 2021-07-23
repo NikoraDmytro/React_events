@@ -9,11 +9,11 @@ interface Props {
 
 export const ListByDate = ({ EventsByDate, date }: Props): JSX.Element => {
   return (
-    <li key={date} className="EventListSection">
+    <li className="EventListSection">
       <h3>{normalizeDateFormat(date)}</h3>
       <ul className="EventsByDate">
         {EventsByDate.map((event) => (
-          <Event event={event} />
+          <Event key={event.eventId} event={event} />
         ))}
       </ul>
     </li>

@@ -19,10 +19,15 @@ export const InputField = ({
 
   return (
     <div className="InputField">
-      <label htmlFor={name} style={errorColor}>
-        {label}
-      </label>
-      <br />
+      {label ? (
+        <>
+          <label htmlFor={name} style={errorColor}>
+            {label}
+          </label>
+
+          <br />
+        </>
+      ) : null}
       <input {...field} {...props} style={errorBorder} />
       {meta.error && meta.touched ? (
         <strong className="error">{meta.error}</strong>

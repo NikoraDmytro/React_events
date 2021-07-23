@@ -16,7 +16,7 @@ export const EventsList = observer(() => {
   return (
     <ul className="EventsList">
       {Object.keys(Events).map((date) => (
-        <ListByDate EventsByDate={Events[date]} date={date} />
+        <ListByDate key={date} EventsByDate={Events[date]} date={date} />
       ))}
     </ul>
   );
