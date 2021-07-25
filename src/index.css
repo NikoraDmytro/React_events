@@ -9,3 +9,7 @@ body {
 #root {
   margin: 1em 2em;
 }
+
+input::-webkit-calendar-picker-indicator {
+  display: none;
+}

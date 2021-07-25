@@ -23,12 +23,13 @@ export const Event = ({ event }: Props) => {
   return (
     <li>
       <Formik
+        //@ts-ignore
         initialValues={initialValues}
-        validationSchema={eventFormValidation}
+        validate={eventFormValidation}
         onSubmit={(values) => console.log(values)}
       >
         <Form className="Event">
-          <p className="Name">{event.eventName}</p>
+          <span className="Name">{event.eventName}</span>
 
           <DateInputField name="eventDate" disabled={!editMode} />
           <EventStartInputField name="eventStart" disabled={!editMode} />
