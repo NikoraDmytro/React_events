@@ -18,9 +18,7 @@ export const useListPadding = (element: HTMLUListElement | undefined) => {
 
         const capacity = Math.floor(listWidth / childWidth);
         const remaining = listWidth - childWidth * capacity;
-        const padding = Math.floor(remaining / 2);
-
-        console.log(padding);
+        const padding = Math.floor(remaining / 2) - 1;
 
         setStyle({
           paddingLeft: padding,
