@@ -21,7 +21,7 @@ export const ArrowButton = ({ onClick, disabled, direction }: Props) => {
           points="10,10 190,500 10,1000"
           fill="none"
           stroke="black"
-          stroke-width="10"
+          strokeWidth="10"
           transform={`rotate(${degree[direction]} 100,500)`}
         />
       </svg>
@@ -29,7 +29,7 @@ export const ArrowButton = ({ onClick, disabled, direction }: Props) => {
   };
 
   return (
-    <button onClick={onClick} disabled={disabled}>
+    <button className="ArrowButton" onClick={onClick} disabled={disabled}>
       <ArrowSvg width={100 + "%"} height={100 + "%"} />
     </button>
   );

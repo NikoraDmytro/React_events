@@ -60,4 +60,63 @@ router.post("/add_event", async (req, res) => {
   }
 });
 
+router.post("/edit_event", async (req, res) => {
+  try {
+    const connection = await con;
+
+    const firstSql = `
+    SELECT event_name
+    FROM events_table 
+    WHERE event_date = ? 
+      AND event_end >= ? 
+      AND event_start <= ?
+    `;
+
+    const [
+      overlappingTimeIntervals,
+      fields,
+    ] = await connection.execute(firstSql, [
+      req.body.eventDate,
+      req.body.eventStart,
+      req.body.eventEnd,
+    ]);
+
+    if (overlappingTimeIntervals.length) {
+      res.status(403).send("Time is busy!");
+      return;
+    }
+
+    const secondSql = `
+    UPDATE events_table 
+    SET event_date = ?,event_start = ?, event_end = ?
+    WHERE event_id = ?
+    `;
+
+    const response = await connection.execute(secondSql, [
+      req.body.eventDate,
+      req.body.eventStart,
+      req.body.eventEnd,
+      req.body.eventId,
+    ]);
+
+    res.json(response);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
+router.delete("/delete_event/:id", async (req, res) => {
+  try {
+    const connection = await con;
+
+    const sql = "DELETE FROM events_table WHERE event_id = ?";
+
+    const response = await connection.execute(sql, [req.params.id]);
+
+    res.json(response);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
 module.exports = router;

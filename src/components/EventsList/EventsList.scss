@@ -7,6 +7,8 @@
     border: 0;
     background-color: transparent;
     cursor: pointer;
+  }
+  .ArrowButton {
     width: 2.5em;
   }
 }
@@ -40,8 +42,8 @@
 
 .EventsByDate {
   height: 20em;
-  button {
-    height: 4em;
+  .ArrowButton {
+    height: 3em;
     position: absolute;
     left: 50%;
     &:nth-child(1) {
@@ -89,6 +91,9 @@
     .Delete {
       width: 1em;
       height: auto;
+    }
+    .error {
+      display: none;
     }
   }
 }

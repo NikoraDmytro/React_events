@@ -1,22 +1,26 @@
 import { EventData } from "../../shared/types/EventsStoreTypes";
-import editEvent from "./img/editEvent.png";
-import deleteEvent from "./img/deleteEvent.png";
+import editEventImg from "./img/editEvent.png";
+import deleteEventImg from "./img/deleteEvent.png";
 import confirmChanges from "./img/confirmChanges.png";
 import { useState } from "react";
 import { DateInputField } from "./../inputs/DateInputField";
 import { EventStartInputField } from "./../inputs/EventStartInputField";
 import { InputField } from "./../inputs/InputField";
-import { Form, Formik } from "formik";
+import { Form, Formik, FormikHelpers } from "formik";
 import { eventFormValidation } from "./../../utils/validation/eventFormValidation";
+import { EventsStore } from "./../../stores/EventsStore";
+import { handleEventEdit } from "./../../utils/functions/handleEventEdit";
 
 interface Props {
   event: EventData;
 }
 
 export const Event = ({ event }: Props) => {
+  const store = EventsStore;
   const [editMode, setEditMode] = useState(false);
 
-  const handleClick = () => setEditMode(!editMode);
+  const deleteEvent = () => store.deleteEvent(event);
+  const toggleMode = () => setEditMode(!editMode);
 
   const initialValues = Object.fromEntries(Object.entries(event));
 
@@ -26,7 +30,9 @@ export const Event = ({ event }: Props) => {
         //@ts-ignore
         initialValues={initialValues}
         validate={eventFormValidation}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={(values, formikHelpers: FormikHelpers<EventData>) => {
+          handleEventEdit(values, formikHelpers, event, toggleMode);
+        }}
       >
         <Form className="Event">
           <span className="Name">{event.eventName}</span>
@@ -36,12 +42,19 @@ export const Event = ({ event }: Props) => {
           <InputField type="time" name="eventEnd" disabled={!editMode} />
 
           {editMode ? (
-            <img onClick={handleClick} src={confirmChanges} alt="Done" />
+            <button type="submit">
+              <img src={confirmChanges} alt="Done" />
+            </button>
           ) : (
-            <img onClick={handleClick} src={editEvent} alt="Edit" />
+            <img onClick={toggleMode} src={editEventImg} alt="Edit" />
           )}
 
-          <img className="Delete" src={deleteEvent} alt="Delete" />
+          <img
+            className="Delete"
+            src={deleteEventImg}
+            alt="Delete"
+            onClick={deleteEvent}
+          />
         </Form>
       </Formik>
     </li>
